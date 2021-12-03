@@ -37,6 +37,6 @@ export class AppController {
   @UseGuards(JwtAuthGuard)
   @Get('me')
   async getCurrentUser(@AuthUser() user: any) {
-    return await this.usersService.getUser(user.id);
+    return await this.usersService.getUserById(user.id);
   }
 }

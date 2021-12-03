@@ -9,6 +9,9 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { RolesGuard } from './guards/roles.guard';
 import { JwtAuthGuard } from './guards/jwt.guard';
+import { MailService } from './services/mail.service';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { mailConfig } from './mail.config';
 
 @Module({
   imports: [
@@ -20,8 +23,16 @@ import { JwtAuthGuard } from './guards/jwt.guard';
         expiresIn: '1d',
       },
     }),
+    MailerModule.forRoot(mailConfig),
   ],
   controllers: [AppController],
-  providers: [AppService, UsersService, JwtStrategy, JwtAuthGuard, RolesGuard],
+  providers: [
+    AppService,
+    UsersService,
+    JwtStrategy,
+    JwtAuthGuard,
+    RolesGuard,
+    MailService,
+  ],
 })
 export class AppModule {}

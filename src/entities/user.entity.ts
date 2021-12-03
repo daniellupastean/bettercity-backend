@@ -24,6 +24,9 @@ export class User {
   @Column()
   role: string;
 
+  @Column({ nullable: true })
+  resetToken: string;
+
   @CreateDateColumn()
   created_at: Date;
 

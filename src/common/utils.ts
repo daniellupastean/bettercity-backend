@@ -13,6 +13,14 @@ export function isValidUuid(id: string): boolean {
   return re.test(id);
 }
 
-export function base64_encode(bitmap) {
+export function base64Encode(bitmap) {
   return Buffer.from(bitmap).toString('base64');
+}
+
+export function generateResetToken() {
+  const rand = () => Math.random().toString(36).substr(2);
+  const token = (length) =>
+    (rand() + rand() + rand() + rand()).substr(0, length);
+
+  return token(10);
 }

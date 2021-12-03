@@ -10,12 +10,14 @@ import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from './users.service';
+import { MailService } from './mail.service';
 
 @Injectable()
 export class AppService {
   constructor(
     @InjectRepository(User) private readonly usersRepository: Repository<User>,
     private readonly usersService: UsersService,
+    private readonly mailService: MailService,
     private jwtService: JwtService,
   ) {}
   getHello(): string {
@@ -63,9 +65,9 @@ export class AppService {
 
   async resetPassword(email: string) {
     if (!isValidEmail(email)) return { message: 'Invalid email!' };
-    const user = await this.usersService.getUserByEmail(email);
+    const user = await this.usersService.getUserByEmail(email, false);
     if ('message' in user) return user;
 
-    return { message: 'Send change password email' };
+    return await this.mailService.sendChangePasswordEmail(user);
   }
 }
