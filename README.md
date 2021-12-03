@@ -53,3 +53,7 @@ $ npm run start:prod
   "email": "user@example.com",
 }
 ```
+
+**GET** /me
+
+`Authenticated user needed - Bearer token`
