@@ -1,10 +1,16 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AppService } from '../services/app.service';
 import * as bcrypt from 'bcrypt';
+import { JwtAuthGuard } from 'src/guards/jwt.guard';
+import { AuthUser } from 'src/decorators/user.decorator';
+import { UsersService } from 'src/services/users.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly usersService: UsersService,
+  ) {}
 
   @Get()
   getHello(): string {
@@ -26,5 +32,11 @@ export class AppController {
   @Post('reset-password')
   async resetPassword(@Body('email') email: string) {
     return await this.appService.resetPassword(email);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  async getCurrentUser(@AuthUser() user: any) {
+    return await this.usersService.getUser(user.id);
   }
 }

@@ -28,7 +28,12 @@ export class AppService {
     if (!(await bcrypt.compare(data.password, user.password)))
       throw new UnauthorizedException('Invalid credentials!');
 
-    const jwt = await this.jwtService.signAsync({ user });
+    const jwt = await this.jwtService.signAsync({
+      user: {
+        id: user.id,
+        role: user.role,
+      },
+    });
 
     return { accessToken: jwt };
   }
@@ -46,7 +51,12 @@ export class AppService {
     if (!user) throw new BadRequestException('Something went wrong');
 
     // delete result.password;
-    const jwt = await this.jwtService.signAsync({ user });
+    const jwt = await this.jwtService.signAsync({
+      user: {
+        id: user.id,
+        role: user.role,
+      },
+    });
 
     return { message: 'Account successfully created', accessToken: jwt };
   }

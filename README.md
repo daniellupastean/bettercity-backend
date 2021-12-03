@@ -41,7 +41,7 @@ $ npm run start:prod
 ```JSON
 {
   "email": "user@example.com",
-  "password": "pass"
+  "password": "pass",
   "name": "Name"
 }
 ```

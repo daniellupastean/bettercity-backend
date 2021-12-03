@@ -5,7 +5,10 @@ import { AppService } from './services/app.service';
 import { typeOrmConfig } from './orm.config';
 import { User } from './entities/user.entity';
 import { UsersService } from './services/users.service';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './strategies/jwt.strategy';
+import { RolesGuard } from './guards/roles.guard';
+import { JwtAuthGuard } from './guards/jwt.guard';
 
 @Module({
   imports: [
@@ -19,6 +22,6 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, UsersService],
+  providers: [AppService, UsersService, JwtStrategy, JwtAuthGuard, RolesGuard],
 })
 export class AppModule {}
