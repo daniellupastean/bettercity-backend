@@ -25,7 +25,12 @@ export class UsersService {
   }
 
   async getAllUsers() {
-    return 'to be implemented';
+    const users = await this.usersRepository.find();
+    users.forEach((user) => {
+      delete user.password;
+    });
+
+    return users;
   }
 
   async updateResetTokeByUserId(user: User, hashedResetToken: string) {

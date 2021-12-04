@@ -13,12 +13,17 @@ import { MailService } from './services/mail.service';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { mailConfig } from './mail.config';
 import { Issue } from './entities/issue.entity';
+import { Picture } from './entities/picture.entity';
+import { UsersController } from './controllers/users.controller';
+import { IssuesController } from './controllers/issues.controller';
+import { IssuesService } from './services/issues.service';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
     TypeOrmModule.forFeature([User]),
     TypeOrmModule.forFeature([Issue]),
+    TypeOrmModule.forFeature([Picture]),
     JwtModule.register({
       secret: process.env.JWT_SECRET_KEY,
       signOptions: {
@@ -27,7 +32,7 @@ import { Issue } from './entities/issue.entity';
     }),
     MailerModule.forRoot(mailConfig),
   ],
-  controllers: [AppController],
+  controllers: [AppController, UsersController, IssuesController],
   providers: [
     AppService,
     UsersService,
@@ -35,6 +40,7 @@ import { Issue } from './entities/issue.entity';
     JwtAuthGuard,
     RolesGuard,
     MailService,
+    IssuesService,
   ],
 })
 export class AppModule {}

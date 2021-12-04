@@ -57,3 +57,7 @@ $ npm run start:prod
 **GET** /me
 
 `Authenticated user needed - Bearer token`
+
+**GET** /users
+
+`Authenticated user needed - Bearer token`

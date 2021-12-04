@@ -4,9 +4,11 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Picture } from './picture.entity';
 import { User } from './user.entity';
 
 @Entity('issues')
@@ -33,15 +35,24 @@ export class Issue {
   @Column()
   zone: string;
 
-  @Column()
+  @Column({ nullable: true })
   ressolvedAt: Date;
 
   @Column()
   description: string;
+
+  @Column()
+  lat: string;
+
+  @Column()
+  lng: string;
 
   @CreateDateColumn()
   createdAt: Date;
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => Picture, (picture) => picture.issueId)
+  pictures: Picture[];
 }

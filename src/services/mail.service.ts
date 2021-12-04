@@ -15,8 +15,9 @@ export class MailService {
 
   async sendChangePasswordEmail(user: User) {
     const resetToken = generateResetToken();
-    const hashedResetToken = bcrypt.hash(resetToken, 12);
+    const hashedResetToken = await bcrypt.hash(resetToken, 12);
 
+    console.log(hashedResetToken);
     await this.usersService.updateResetTokeByUserId(user, hashedResetToken);
 
     await this.mailerService.sendMail({
