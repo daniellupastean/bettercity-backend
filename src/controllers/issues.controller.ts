@@ -27,4 +27,10 @@ export class IssuesController {
   async getCurrentUserIssues(@AuthUser() user: any) {
     return await this.issuesService.getIssuesByOwnerId(user.id);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('edit')
+  async editIssue(@Body() issueData) {
+    // return await this.issuesService.getIssuesByOwnerId(user.id);
+  }
 }
