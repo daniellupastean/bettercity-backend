@@ -4,9 +4,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 import { Issue } from './issue.entity';
 
@@ -19,14 +17,14 @@ export class Picture {
   link: string;
 
   @Column()
-  priority: string;
+  issueId: string;
 
-  @ManyToOne((type) => Issue, (issue) => issue.id, {
+  @ManyToOne((type) => Issue, {
     onDelete: 'CASCADE',
     cascade: true,
   })
-  @JoinColumn({ name: 'ownerId' })
-  issueId: Issue;
+  @JoinColumn()
+  issue: Issue;
 
   @CreateDateColumn()
   createdAt: Date;

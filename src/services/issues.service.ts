@@ -5,6 +5,7 @@ import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { UsersService } from './users.service';
 import { v4 as uuidv4 } from 'uuid';
+import { PicturesService } from './pictures.service';
 
 @Injectable()
 export class IssuesService {
@@ -12,6 +13,7 @@ export class IssuesService {
     @InjectRepository(Issue)
     private readonly issuesRepository: Repository<Issue>,
     private readonly usersService: UsersService,
+    private readonly picturesService: PicturesService,
   ) {}
 
   async createIssue(issueData, userData) {
@@ -34,11 +36,12 @@ export class IssuesService {
 
     const savedIssue = await this.issuesRepository.save(issue);
 
-    for (let i = 0; i < issueData.pictures.length; i++) {
-      ('upload images to imgbb & return array of links');
-    }
+    const links = await this.picturesService.uploadPictures(
+      issueData.pictures,
+      issue.id,
+    );
 
-    savedIssue['pictures'] = [];
+    savedIssue['pictures'] = links;
 
     return savedIssue;
   }
@@ -53,13 +56,27 @@ export class IssuesService {
     const user = await this.usersService.getUserById(ownerId);
     if ('message' in user) return user;
 
-    return await this.issuesRepository.find({
+    const issues = await this.issuesRepository.find({
       where: { ownerId },
+      relations: ['pictures'],
     });
+
+    issues.forEach((issue) => {
+      issue.pictures.map((picture) => picture.link);
+    });
+
+    return issues;
   }
 
   async getAllIssues() {
-    return await this.issuesRepository.find();
+    const issues = await this.issuesRepository.find({
+      relations: ['pictures'],
+    });
+    issues.forEach((issue) => {
+      issue.pictures.map((picture) => picture.link);
+    });
+
+    return issues;
   }
 
   async deleteIssue(id: string) {

@@ -56,6 +56,7 @@ export class Issue {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToMany(() => Picture, (picture) => picture.issueId)
+  @OneToMany(() => Picture, (picture) => picture.issue)
+  @JoinColumn()
   pictures: Picture[];
 }

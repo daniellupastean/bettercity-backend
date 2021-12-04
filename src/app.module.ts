@@ -17,6 +17,7 @@ import { Picture } from './entities/picture.entity';
 import { UsersController } from './controllers/users.controller';
 import { IssuesController } from './controllers/issues.controller';
 import { IssuesService } from './services/issues.service';
+import { PicturesService } from './services/pictures.service';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { IssuesService } from './services/issues.service';
     RolesGuard,
     MailService,
     IssuesService,
+    PicturesService,
   ],
 })
 export class AppModule {}
