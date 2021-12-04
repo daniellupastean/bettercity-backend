@@ -12,11 +12,13 @@ import { JwtAuthGuard } from './guards/jwt.guard';
 import { MailService } from './services/mail.service';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { mailConfig } from './mail.config';
+import { Issue } from './entities/issue.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
     TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([Issue]),
     JwtModule.register({
       secret: process.env.JWT_SECRET_KEY,
       signOptions: {
