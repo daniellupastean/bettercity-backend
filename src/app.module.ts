@@ -18,6 +18,9 @@ import { UsersController } from './controllers/users.controller';
 import { IssuesController } from './controllers/issues.controller';
 import { IssuesService } from './services/issues.service';
 import { PicturesService } from './services/pictures.service';
+import { IssueTypesService } from './services/issueTypes.service';
+import { IssueTypesController } from './controllers/issueTypes.controller';
+import { IssueType } from './entities/issueType.entity';
 
 @Module({
   imports: [
@@ -25,6 +28,7 @@ import { PicturesService } from './services/pictures.service';
     TypeOrmModule.forFeature([User]),
     TypeOrmModule.forFeature([Issue]),
     TypeOrmModule.forFeature([Picture]),
+    TypeOrmModule.forFeature([IssueType]),
     JwtModule.register({
       secret: process.env.JWT_SECRET_KEY,
       signOptions: {
@@ -33,7 +37,12 @@ import { PicturesService } from './services/pictures.service';
     }),
     MailerModule.forRoot(mailConfig),
   ],
-  controllers: [AppController, UsersController, IssuesController],
+  controllers: [
+    AppController,
+    UsersController,
+    IssuesController,
+    IssueTypesController,
+  ],
   providers: [
     AppService,
     UsersService,
@@ -43,6 +52,7 @@ import { PicturesService } from './services/pictures.service';
     MailService,
     IssuesService,
     PicturesService,
+    IssueTypesService,
   ],
 })
 export class AppModule {}
