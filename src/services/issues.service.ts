@@ -65,24 +65,20 @@ export class IssuesService {
       relations: ['pictures', 'likes'],
     });
 
-    (issues as any).forEach((issue) => {
+    return (issues as any).forEach((issue) => {
       issue?.pictures?.map((picture) => picture.link);
-      issue?.likes?.map((like) => like.user.id);
+      issue?.likes?.map((like) => like?.userId);
     });
-
-    return issues;
   }
 
   async getAllIssues() {
     const issues = await this.issuesRepository.find({
       relations: ['pictures', 'likes'],
     });
-    (issues as any).forEach((issue) => {
+    return (issues as any).forEach((issue) => {
       issue?.pictures?.map((picture) => picture.link);
-      issue?.likes?.map((like) => like.user.id);
+      issue?.likes?.map((like) => like.userId);
     });
-
-    return issues;
   }
 
   async deleteIssue(id: string) {

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/guards/jwt.guard';
 import { AuthUser } from 'src/decorators/user.decorator';
 import { UsersService } from 'src/services/users.service';
@@ -17,6 +17,11 @@ export class IssuesController {
   @Post('create')
   createIssue(@Body() data, @AuthUser() user: any) {
     return this.issuesService.createIssue(data, user);
+  }
+
+  @Get(':id')
+  async getIssueById(@Param('id') id: string) {
+    return await this.issuesService.getIssueById(id);
   }
 
   @Get()

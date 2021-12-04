@@ -88,6 +88,8 @@ $ npm run start:prod
 
 **GET** /issues
 
+**GET** /issues/:id
+
 **POST** /issues/likes
 
 `Authenticated user needed - Bearer token`
@@ -96,5 +98,4 @@ $ npm run start:prod
 {
 	"issueId":"some-uuid"
 }
-
 ```
