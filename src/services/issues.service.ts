@@ -50,8 +50,14 @@ export class IssuesService {
   }
 
   async getIssueById(id: string) {
-    const issue = await this.issuesRepository.findOne({ id });
+    const issue: any = await this.issuesRepository.findOne({
+      where: { id },
+      relations: ['pictures', 'likes'],
+    });
     if (!issue) return { message: 'Issue not found' };
+
+    issue.pictures = issue.pictures.map((picture) => picture.link);
+    issue.likes = issue.likes.map((like) => like.userId);
     return issue;
   }
 
