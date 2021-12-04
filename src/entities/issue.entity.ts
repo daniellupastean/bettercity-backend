@@ -45,6 +45,12 @@ export class Issue {
   description: string;
 
   @Column()
+  address: string;
+
+  @Column()
+  type: string;
+
+  @Column()
   lat: string;
 
   @Column()

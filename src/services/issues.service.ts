@@ -28,6 +28,8 @@ export class IssuesService {
     issue.lat = issueData.lat;
     issue.lng = issueData.lng;
     issue.zone = issueData.zone;
+    issue.type = issueData.type;
+    issue.address = issueData.address;
     issue.createdAt = date;
     issue.updatedAt = date;
     issue.ownerId = user.id;
@@ -82,4 +84,6 @@ export class IssuesService {
   async deleteIssue(id: string) {
     return 'to be implemented';
   }
+
+  async editIssue(issueData) {}
 }
