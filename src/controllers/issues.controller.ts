@@ -38,10 +38,7 @@ export class IssuesController {
 
   @UseGuards(JwtAuthGuard)
   @Post('like')
-  async addLike(
-    @Body('userId') userId: string,
-    @Body('issueId') issueId: string,
-  ) {
-    return await this.likesService.addLike(userId, issueId);
+  async addLike(@AuthUser() user: any, @Body('issueId') issueId: string) {
+    return await this.likesService.addLike(user.id, issueId);
   }
 }

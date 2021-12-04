@@ -31,6 +31,8 @@ export class LikesService {
     });
     if (existingLike) return { message: 'Like already exists' };
 
-    return await this.likesRepository.save({ userId, issueId });
+    await this.likesRepository.save({ userId, issueId });
+
+    return { message: 'Like added successfully' };
   }
 }

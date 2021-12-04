@@ -72,9 +72,12 @@ $ npm run start:prod
 	"description":"This is a good description for testing",
 	"zone":"Centru",
 	"priority":"medium",
+  "address":"Suceava, Romania",
+  "type":"Pothole",
 	"lat":"0",
 	"lng":"0",
-	"pictures":["some base64 string", "some base64 string"]
+	"pictures":["some base64 string", "some base64 string"],
+  "likes":["uuid-user1", "uuid-user2"]
 }
 
 ```
@@ -84,3 +87,14 @@ $ npm run start:prod
 `Authenticated user needed - Bearer token`
 
 **GET** /issues
+
+**POST** /issues/likes
+
+`Authenticated user needed - Bearer token`
+
+```JSON
+{
+	"issueId":"some-uuid"
+}
+
+```
