@@ -75,10 +75,15 @@ export class IssuesService {
     const issues = await this.issuesRepository.find({
       relations: ['pictures', 'likes'],
     });
-    return (issues as any).forEach((issue) => {
+
+    const newIssues = [];
+    (issues as any).forEach((issue) => {
       issue?.pictures?.map((picture) => picture.link);
       issue?.likes?.map((like) => like.userId);
+      newIssues.push(issue);
     });
+
+    return newIssues;
   }
 
   async deleteIssue(id: string) {
