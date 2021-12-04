@@ -3,12 +3,14 @@ import { JwtAuthGuard } from 'src/guards/jwt.guard';
 import { AuthUser } from 'src/decorators/user.decorator';
 import { UsersService } from 'src/services/users.service';
 import { IssuesService } from 'src/services/issues.service';
+import { LikesService } from 'src/services/likes.service';
 
 @Controller('issues')
 export class IssuesController {
   constructor(
     private readonly usersService: UsersService,
     private readonly issuesService: IssuesService,
+    private readonly likesService: LikesService,
   ) {}
 
   @UseGuards(JwtAuthGuard)
@@ -29,8 +31,17 @@ export class IssuesController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('edit')
+  @Post('edit')
   async editIssue(@Body() issueData) {
     // return await this.issuesService.getIssuesByOwnerId(user.id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('like')
+  async addLike(
+    @Body('userId') userId: string,
+    @Body('issueId') issueId: string,
+  ) {
+    return await this.likesService.addLike(userId, issueId);
   }
 }

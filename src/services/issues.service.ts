@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { UsersService } from './users.service';
 import { v4 as uuidv4 } from 'uuid';
 import { PicturesService } from './pictures.service';
+import { isValidUuid } from 'src/common/utils';
 
 @Injectable()
 export class IssuesService {
@@ -55,16 +56,18 @@ export class IssuesService {
   }
 
   async getIssuesByOwnerId(ownerId: string) {
+    if (!isValidUuid(ownerId)) return { message: 'Invalid UUID' };
     const user = await this.usersService.getUserById(ownerId);
     if ('message' in user) return user;
 
     const issues = await this.issuesRepository.find({
       where: { ownerId },
-      relations: ['pictures'],
+      relations: ['pictures', 'likes'],
     });
 
-    issues.forEach((issue) => {
-      issue.pictures.map((picture) => picture.link);
+    (issues as any).forEach((issue) => {
+      issue?.pictures?.map((picture) => picture.link);
+      issue?.likes?.map((like) => like.user.id);
     });
 
     return issues;
@@ -72,10 +75,11 @@ export class IssuesService {
 
   async getAllIssues() {
     const issues = await this.issuesRepository.find({
-      relations: ['pictures'],
+      relations: ['pictures', 'likes'],
     });
-    issues.forEach((issue) => {
-      issue.pictures.map((picture) => picture.link);
+    (issues as any).forEach((issue) => {
+      issue?.pictures?.map((picture) => picture.link);
+      issue?.likes?.map((like) => like.user.id);
     });
 
     return issues;

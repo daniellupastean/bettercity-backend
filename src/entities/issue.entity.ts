@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Like } from './like.entity';
 import { Picture } from './picture.entity';
 import { User } from './user.entity';
 
@@ -65,4 +66,8 @@ export class Issue {
   @OneToMany(() => Picture, (picture) => picture.issue)
   @JoinColumn()
   pictures: Picture[];
+
+  @OneToMany(() => Like, (like) => like.issue)
+  @JoinColumn()
+  likes: Like[];
 }

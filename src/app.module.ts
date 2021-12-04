@@ -22,6 +22,9 @@ import { IssueTypesService } from './services/issueTypes.service';
 import { IssueTypesController } from './controllers/issueTypes.controller';
 import { IssueType } from './entities/issueType.entity';
 
+import { LikesService } from './services/likes.service';
+import { Like } from './entities/like.entity';
+
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
@@ -29,6 +32,7 @@ import { IssueType } from './entities/issueType.entity';
     TypeOrmModule.forFeature([Issue]),
     TypeOrmModule.forFeature([Picture]),
     TypeOrmModule.forFeature([IssueType]),
+    TypeOrmModule.forFeature([Like]),
     JwtModule.register({
       secret: process.env.JWT_SECRET_KEY,
       signOptions: {
@@ -53,6 +57,7 @@ import { IssueType } from './entities/issueType.entity';
     IssuesService,
     PicturesService,
     IssueTypesService,
+    LikesService,
   ],
 })
 export class AppModule {}
