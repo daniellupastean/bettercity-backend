@@ -29,10 +29,13 @@ export class LikesService {
       userId,
       issueId,
     });
-    if (existingLike) return { message: 'Like already exists' };
+    if (existingLike) {
+      await this.likesRepository.delete({ id: existingLike.id });
+      return { message: 'Unliked the issue' };
+    }
 
     await this.likesRepository.save({ userId, issueId });
 
-    return { message: 'Like added successfully' };
+    return { message: 'Liked the issue' };
   }
 }
