@@ -28,8 +28,8 @@ export class IssuesService {
     issue.zone = issueData.zone;
     issue.createdAt = date;
     issue.updatedAt = date;
-    issue.ownerId = user;
-    issue.status = issueData.status;
+    issue.ownerId = user.id;
+    issue.status = 'not assigned';
     issue.priority = issueData.priority;
 
     const savedIssue = await this.issuesRepository.save(issue);
@@ -37,6 +37,10 @@ export class IssuesService {
     for (let i = 0; i < issueData.pictures.length; i++) {
       ('upload images to imgbb & return array of links');
     }
+
+    savedIssue['pictures'] = [];
+
+    return savedIssue;
   }
 
   async getIssueById(id: string) {
@@ -51,7 +55,6 @@ export class IssuesService {
 
     return await this.issuesRepository.find({
       where: { ownerId },
-      relations: ['ownerId'],
     });
   }
 

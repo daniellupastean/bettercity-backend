@@ -22,12 +22,15 @@ export class Issue {
   @Column()
   priority: string;
 
-  @ManyToOne((type) => User, (user) => user.id, {
+  @Column()
+  ownerId: string;
+
+  @ManyToOne((type) => User, {
     onDelete: 'CASCADE',
     cascade: true,
   })
-  @JoinColumn({ name: 'ownerId' })
-  ownerId: User;
+  @JoinColumn()
+  user: User;
 
   @Column()
   status: string;

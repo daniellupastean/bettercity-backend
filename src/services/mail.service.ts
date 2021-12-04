@@ -17,7 +17,6 @@ export class MailService {
     const resetToken = generateResetToken();
     const hashedResetToken = await bcrypt.hash(resetToken, 12);
 
-    console.log(hashedResetToken);
     await this.usersService.updateResetTokeByUserId(user, hashedResetToken);
 
     await this.mailerService.sendMail({

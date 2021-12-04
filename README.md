@@ -61,3 +61,24 @@ $ npm run start:prod
 **GET** /users
 
 `Authenticated user needed - Bearer token`
+
+**POST** /issues/create
+
+`Authenticated user needed - Bearer token`
+
+```JSON
+{
+	"title":"Issue Title 1",
+	"description":"This is a good description for testing",
+	"zone":"Centru",
+	"priority":"medium",
+	"lat":"0",
+	"lng":"0",
+	"pictures":[]
+}
+
+```
+
+**GET** /issues/mine
+
+`Authenticated user needed - Bearer token`

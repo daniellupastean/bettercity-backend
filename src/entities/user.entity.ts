@@ -41,5 +41,5 @@ export class User {
   }
 
   @OneToMany(() => Issue, (issue) => issue.ownerId)
-  issues: Issue[];
+  issues: string[];
 }
