@@ -3,9 +3,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Issue } from './issue.entity';
 
 @Entity('users')
 export class User {
@@ -28,13 +30,16 @@ export class User {
   resetToken: string;
 
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 
   @UpdateDateColumn()
-  updated_at: Date;
+  updatedAt: Date;
 
   @BeforeInsert()
   emailToLowerCase() {
     this.email = this.email.toLowerCase();
   }
+
+  @OneToMany(() => Issue, (issue) => issue.ownerId)
+  issues: Issue[];
 }
