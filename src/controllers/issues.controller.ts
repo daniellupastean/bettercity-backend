@@ -17,6 +17,11 @@ export class IssuesController {
     return this.issuesService.createIssue(data, user);
   }
 
+  @Get()
+  async getAllIssues() {
+    return await this.issuesService.getAllIssues();
+  }
+
   @UseGuards(JwtAuthGuard)
   @Get('mine')
   async getCurrentUserIssues(@AuthUser() user: any) {

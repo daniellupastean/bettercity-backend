@@ -59,7 +59,7 @@ export class IssuesService {
   }
 
   async getAllIssues() {
-    return 'to be implemented';
+    return await this.issuesRepository.find();
   }
 
   async deleteIssue(id: string) {
