@@ -74,7 +74,7 @@ $ npm run start:prod
 	"priority":"medium",
 	"lat":"0",
 	"lng":"0",
-	"pictures":[]
+	"pictures":["some base64 string", "some base64 string"]
 }
 
 ```
