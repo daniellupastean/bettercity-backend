@@ -46,4 +46,12 @@ export class IssuesController {
   async addLike(@AuthUser() user: any, @Body('issueId') issueId: string) {
     return await this.likesService.addLike(user.id, issueId);
   }
+
+  @Post('change-status')
+  async changeIssueStatus(
+    @Body('id') issueId: string,
+    @Body('status') status: string,
+  ) {
+    return await this.issuesService.changeIssueStatus(issueId, status);
+  }
 }

@@ -92,5 +92,12 @@ export class IssuesService {
     return 'to be implemented';
   }
 
-  async editIssue(issueData) {}
+  async changeIssueStatus(issueId: string, status: string) {
+    if (!isValidUuid) return { message: 'invalid uuid' };
+    const issue = await this.issuesRepository.findOne(issueId);
+    if (!issue) return { message: 'Issue not foudn' };
+
+    issue.status = status;
+    return await this.issuesRepository.save(issue);
+  }
 }
