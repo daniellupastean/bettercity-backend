@@ -51,12 +51,11 @@ export class IssuesService {
   async getIssueById(id: string) {
     const issue: any = await this.issuesRepository.findOne({
       where: { id },
-      relations: ['pictures', 'likes'],
+      relations: ['pictures'],
     });
     if (!issue) return { message: 'Issue not found' };
 
     issue.pictures = issue.pictures.map((picture) => picture.link);
-    issue.likes = issue.likes.map((like) => like.userId);
     return issue;
   }
 
@@ -67,24 +66,22 @@ export class IssuesService {
 
     const issues = await this.issuesRepository.find({
       where: { ownerId },
-      relations: ['pictures', 'likes'],
+      relations: ['pictures'],
     });
 
     return (issues as any).forEach((issue) => {
       issue?.pictures?.map((picture) => picture.link);
-      issue?.likes?.map((like) => like?.userId);
     });
   }
 
   async getAllIssues() {
     const issues = await this.issuesRepository.find({
-      relations: ['pictures', 'likes'],
+      relations: ['pictures'],
     });
 
     const newIssues = [];
     (issues as any).forEach((issue) => {
       issue?.pictures?.map((picture) => picture.link);
-      issue?.likes?.map((like) => like.userId);
       newIssues.push(issue);
     });
 

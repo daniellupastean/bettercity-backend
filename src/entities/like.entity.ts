@@ -5,7 +5,6 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Issue } from './issue.entity';
 import { Suggestion } from './suggestion.entity';
 
 @Entity('likes')
