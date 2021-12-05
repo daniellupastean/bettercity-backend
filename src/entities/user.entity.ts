@@ -29,6 +29,9 @@ export class User {
   @Column({ nullable: true })
   resetToken: string;
 
+  @Column({ default: 0 })
+  resolvedReportedIssues: number;
+
   @CreateDateColumn()
   createdAt: Date;
 

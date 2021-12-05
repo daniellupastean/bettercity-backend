@@ -99,3 +99,5 @@ $ npm run start:prod
 	"issueId":"some-uuid"
 }
 ```
+
+**GET** /statistics

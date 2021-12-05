@@ -19,7 +19,7 @@ export class UsersService {
   async getUserByEmail(email: string, removePassword: boolean = true) {
     const user = await this.usersRepository.findOne({ email: email });
     if (!user) return { message: 'User with given email not found!' };
-    delete user.password;
+    if (removePassword) delete user.password;
 
     return user;
   }

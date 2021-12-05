@@ -35,7 +35,6 @@ export class IssuesService {
     issue.updatedAt = date;
     issue.ownerId = user.id;
     issue.status = 'not assigned';
-    issue.priority = issueData.priority;
 
     const savedIssue = await this.issuesRepository.save(issue);
 

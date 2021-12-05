@@ -16,25 +16,25 @@ export class LikesService {
     private readonly issuesService: IssuesService,
   ) {}
 
-  async addLike(userId: string, issueId: string) {
+  async addLike(userId: string, suggestionId: string) {
     if (!isValidUuid(userId)) return { message: 'Invalid user ID' };
     const user = await this.usersService.getUserById(userId);
     if ('message' in user) return user;
 
-    if (!isValidUuid(issueId)) return { message: 'Invalid issue ID' };
-    const issue = await this.issuesService.getIssueById(issueId);
+    if (!isValidUuid(suggestionId)) return { message: 'Invalid issue ID' };
+    const issue = await this.issuesService.getIssueById(suggestionId);
     if ('message' in issue) return issue;
 
     const existingLike = await this.likesRepository.findOne({
       userId,
-      issueId,
+      suggestionId,
     });
     if (existingLike) {
       await this.likesRepository.delete({ id: existingLike.id });
       return { message: 'Unliked the issue' };
     }
 
-    await this.likesRepository.save({ userId, issueId });
+    await this.likesRepository.save({ userId, suggestionId });
 
     return { message: 'Liked the issue' };
   }

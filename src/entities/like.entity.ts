@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Issue } from './issue.entity';
+import { Suggestion } from './suggestion.entity';
 
 @Entity('likes')
 export class Like {
@@ -16,12 +17,12 @@ export class Like {
   userId: string;
 
   @Column()
-  issueId: string;
+  suggestionId: string;
 
   @ManyToOne((type) => Issue, {
     onDelete: 'CASCADE',
     cascade: true,
   })
   @JoinColumn()
-  issue: Issue;
+  suggestion: Suggestion;
 }

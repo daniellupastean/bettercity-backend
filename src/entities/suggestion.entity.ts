@@ -12,8 +12,8 @@ import { Like } from './like.entity';
 import { Picture } from './picture.entity';
 import { User } from './user.entity';
 
-@Entity('issues')
-export class Issue {
+@Entity('suggestions')
+export class Suggestion {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -31,28 +31,7 @@ export class Issue {
   user: User;
 
   @Column()
-  status: string;
-
-  @Column()
-  zone: string;
-
-  @Column({ nullable: true })
-  ressolvedAt: Date;
-
-  @Column()
   description: string;
-
-  @Column()
-  address: string;
-
-  @Column()
-  type: string;
-
-  @Column()
-  lat: string;
-
-  @Column()
-  lng: string;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -63,4 +42,8 @@ export class Issue {
   @OneToMany(() => Picture, (picture) => picture.issue)
   @JoinColumn()
   pictures: Picture[];
+
+  @OneToMany(() => Like, (like) => like.suggestion)
+  @JoinColumn()
+  likes: Like[];
 }

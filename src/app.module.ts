@@ -24,12 +24,16 @@ import { IssueType } from './entities/issueType.entity';
 
 import { LikesService } from './services/likes.service';
 import { Like } from './entities/like.entity';
+import { Suggestion } from './entities/suggestion.entity';
+import { StatisticsService } from './services/statistics.service';
+import { StatisticsController } from './controllers/statistics.controller';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
     TypeOrmModule.forFeature([User]),
     TypeOrmModule.forFeature([Issue]),
+    TypeOrmModule.forFeature([Suggestion]),
     TypeOrmModule.forFeature([Picture]),
     TypeOrmModule.forFeature([IssueType]),
     TypeOrmModule.forFeature([Like]),
@@ -46,6 +50,7 @@ import { Like } from './entities/like.entity';
     UsersController,
     IssuesController,
     IssueTypesController,
+    StatisticsController,
   ],
   providers: [
     AppService,
@@ -58,6 +63,7 @@ import { Like } from './entities/like.entity';
     PicturesService,
     IssueTypesService,
     LikesService,
+    StatisticsService,
   ],
 })
 export class AppModule {}
