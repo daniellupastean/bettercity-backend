@@ -19,7 +19,7 @@ export class Like {
   @Column()
   suggestionId: string;
 
-  @ManyToOne((type) => Issue, {
+  @ManyToOne((type) => Suggestion, {
     onDelete: 'CASCADE',
     cascade: true,
   })
